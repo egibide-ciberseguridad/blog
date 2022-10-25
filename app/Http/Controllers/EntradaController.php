@@ -44,9 +44,6 @@ class EntradaController extends Controller
 
     public function update(UpdateEntradaRequest $request, Entrada $entrada)
     {
-        $this->validate($request, [
-        ]);
-
         $entrada->update([
             'titulo' => request('titulo'),
             'texto' => request('texto'),
