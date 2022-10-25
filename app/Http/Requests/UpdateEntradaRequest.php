@@ -25,6 +25,7 @@ class UpdateEntradaRequest extends FormRequest
     {
         return [
             'titulo' => 'required',
+            'fecha' => 'date',
         ];
     }
 }

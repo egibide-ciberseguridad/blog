@@ -25,6 +25,7 @@ class StoreEntradaRequest extends FormRequest
     {
         return [
             'titulo' => 'required',
+            'fecha' => 'date',
         ];
     }
 }

@@ -23,7 +23,8 @@
         <div class="row mb-3">
             <label class="col-2 form-label">Fecha: </label>
             <div class="col-10">
-                <input class="form-control" type="datetime-local" name="fecha" value="{{ $entrada->fecha ?: now() }}"/>
+                <input class="form-control" type="text" name="fecha" value="{{ $entrada->fecha ?: now() }}"/>
+                <span class="text-danger">{{ $errors->first('fecha') }}</span>
             </div>
         </div>
         <div class="row mb-3">
