@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('entradas.index');
-});
+Route::get('/', [EntradaController::class, 'index'])
+    ->name('home');
 
 Route::resource('entradas', EntradaController::class);
 Route::resource('comentarios', ComentarioController::class);
