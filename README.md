@@ -12,18 +12,22 @@ Aplicación de ejemplo Laravel.
 4. Crea una entrada para `blog.dockerbox.test` en el fichero `hosts` de tu sistema operativo.
 5. Recarga la configuración con `make reload`.
 
-6. Copia el fichero `.env.example` a `.env` y `.env.testing`.
+6. Entra en el workspace con `make workspace` y navega al directorio `blog`.
 
-7. Entra en el workspace con `make workspace` y navega al directorio `blog`.
-8. Crea la clave de aplicación con `php artisan key:generate`.
+7. Instala las dependencias de PHP con `composer install`.
 
-9. Accede a `phpmyadmin.dockerbox.test` y crea dos usuarios con sus bases de datos asociadas: `blog` y `test`.
-10. Modifica los ficheros de configuración para que apunten cada uno a su base de datos.
-11. Lanza las migraciones de la base de datos con `php artisan migrate`.
-12. Inserta datos de ejemplo con `php artisan db:seed`.
+8. Copia el fichero `.env.example` a `.env`.
+9. Crea la clave de aplicación con `php artisan key:generate`.
+10. Copia el fichero `.env` a `.env.testing`.
 
-13. Accede a la web en `https://blog.dockerbox.test`.
+11. Accede a `phpmyadmin.dockerbox.test` y crea dos usuarios con sus bases de datos asociadas: `blog` y `test`.
+12. Modifica los ficheros de configuración `.env` y `.env.testing` para que apunten cada uno a su base de datos.
 
-14. Lanza los tests con `vendor/bin/phpunit`.
-15. Genera el informe de cobertura de test
+13. Lanza las migraciones de la base de datos con `php artisan migrate`.
+14. Inserta datos de ejemplo con `php artisan db:seed`.
+
+15. Accede a la web en `https://blog.dockerbox.test`.
+
+16. Lanza los tests con `vendor/bin/phpunit`.
+17. Genera el informe de cobertura de test
     con `XDEBUG_MODE=coverage vendor/bin/phpunit --colors --stop-on-failure --coverage-html coverage`.
