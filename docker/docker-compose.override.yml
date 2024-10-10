@@ -8,11 +8,6 @@ services:
     depends_on:
       - mailpit
 
-  php:
-    image: blog-php-dev
-    build:
-      dockerfile: Dockerfile.php.dev
-
   phpmyadmin:
     environment:
       - PMA_USER=root

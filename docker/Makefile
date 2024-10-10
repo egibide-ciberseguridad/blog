@@ -11,13 +11,12 @@ help: _header
 	${info }
 	@echo Opciones:
 	@echo ---------------------------------
+	@echo build
 	@echo start / stop / restart / stop-all
-	@echo start
+	@echo install
+	@echo seed
 	@echo workspace / workspace-root
 	@echo test
-	@echo seed
-	@echo install
-	@echo build
 	@echo redis-cli / redis-flush
 	@echo stats
 	@echo clean
@@ -37,6 +36,9 @@ _header:
 	@echo Blog
 	@echo ----
 
+build:
+	@docker compose build --pull
+
 _start-command:
 	@docker compose up -d --remove-orphans
 
@@ -50,6 +52,14 @@ restart: stop start
 stop-all:
 	@docker stop $(shell docker ps -aq)
 
+install:
+	@docker compose exec php composer install
+	@docker compose exec php npm install
+	@docker compose exec php npm run build
+
+seed:
+	@docker compose exec php php artisan migrate:fresh --seed
+
 workspace:
 	@docker compose exec php /bin/bash
 
@@ -58,17 +68,6 @@ workspace-root:
 
 test:
 	@docker compose exec php php artisan test
-
-seed:
-	@docker compose exec php php artisan migrate:fresh --seed
-
-install:
-	@docker compose exec php composer install
-	@docker compose exec php npm install
-	@docker compose exec php npm run build
-
-build:
-	@docker compose pull && docker compose build --pull
 
 redis-cli:
 	@docker compose exec redis redis-cli

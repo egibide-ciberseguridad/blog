@@ -134,3 +134,7 @@ yarn-error.log
 coverage/
 
 docker/.idea/
+
+laravel/.idea/
+
+laravel/public/build/
