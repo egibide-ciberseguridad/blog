@@ -56,11 +56,6 @@ services:
     environment:
       - php.display_errors=on
       - php.error_reporting=E_ALL
-      - PHP_XDEBUG_MODE=develop,coverage,debug
-      - PHP_XDEBUG_REMOTE_HOST=host.docker.internal
-      - PHP_XDEBUG_REMOTE_PORT=9003
-      - PHP_XDEBUG_REMOTE_CONNECT_BACK=yes
-      - PHP_XDEBUG_IDEKEY=blog
     volumes:
       - ../laravel:/var/www/html/laravel
     depends_on:
