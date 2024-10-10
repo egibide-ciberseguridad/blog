@@ -132,3 +132,5 @@ yarn-error.log
 .env.testing
 
 coverage/
+
+docker/.idea/
