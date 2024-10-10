@@ -50,11 +50,11 @@ RUN docker-php-ext-install exif \
     && docker-php-ext-enable exif
 
 # Tamaño de subida máximo en PHP
-COPY php/limits.ini /usr/local/etc/php/conf.d/php_limits.ini
+COPY limits.ini /usr/local/etc/php/conf.d/php_limits.ini
 
 # Caché de PHP
 RUN docker-php-ext-install opcache
-COPY php/opcache.ini /usr/local/etc/php/conf.d/php_opcache.ini
+COPY opcache.ini /usr/local/etc/php/conf.d/php_opcache.ini
 
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
