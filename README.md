@@ -80,3 +80,7 @@ Aplicación de ejemplo Laravel.
     ```shell
     make test
     ```
+
+## Estructura de contenedores
+
+![](docker/docs/servicios.png)
