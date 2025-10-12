@@ -6,9 +6,11 @@
     },
     "devDependencies": {
         "axios": "^0.30",
+        "bootstrap": "^5.3.8",
         "laravel-vite-plugin": "^2",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "sass": "^1.93.2",
         "vite": "^7"
     }
 }
