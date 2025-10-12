@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Entrada>
@@ -17,7 +18,7 @@ class EntradaFactory extends Factory
     public function definition()
     {
         return [
-            'titulo' => $this->faker->sentence(3),
+            'titulo' => Str::replace('.', '', $this->faker->sentence(3)),
             'texto' => $this->faker->text(100),
             'fecha' => $this->faker->dateTime(),
             'visible' => $this->faker->boolean(),
