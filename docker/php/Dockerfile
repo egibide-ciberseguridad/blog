@@ -59,9 +59,6 @@ COPY opcache.ini /usr/local/etc/php/conf.d/php_opcache.ini
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
 
-# https://github.com/npm/uid-number/issues/3
-ENV NPM_CONFIG_UNSAFE_PERM=true
-
 # Node
 RUN apk add --update --no-cache nodejs-current npm
 
