@@ -25,11 +25,12 @@ help: _header
 _urls: _header
 	${info }
 	@echo Sitios disponibles:
-	@echo -----------------------------------------
+	@echo ----------------------------------------------
 	@echo [Sitio web] https://blog.test
 	@echo [phpMyAdmin] https://phpmyadmin.blog.test
 	@echo [Mailpit] https://mailpit.blog.test
-	@echo -----------------------------------------
+	@echo [Traefik] https://traefik.blog.test/dashboard/
+	@echo ----------------------------------------------
 
 _header:
 	@echo ----

@@ -23,8 +23,14 @@ Aplicación de ejemplo Laravel.
 
 1. Clona este repositorio a tu equipo.
 
-2. Crea una entrada para `blog.test`, otra para `phpmyadmin.blog.test` y otra para `mailpit.blog.test` en el fichero
-   `/etc/hosts` de tu sistema operativo, apuntando a `127.0.0.1`.
+2. Añade las siguientes entradas al fichero `/etc/hosts` de tu sistema operativo:
+
+   ```text
+   127.0.0.1    blog.test
+   127.0.0.1    phpmyadmin.blog.test
+   127.0.0.1    mailpit.blog.test
+   127.0.0.1    traefik.blog.test
+   ```
 
 3. Copia el fichero `env-example` del directorio `docker` a `.env` y ajusta las variables si es necesario.
 

@@ -1,12 +1,11 @@
 # Versiones de los contenedores
-PHP_VERSION=8.3
-ALPINE_VERSION=3.19
-MARIADB_VERSION=10.11
-REDIS_VERSION=7.2
+PHP_VERSION=8.4
+ALPINE_VERSION=3.22
+NGINX_VERSION=mainline-alpine-slim
+MARIADB_VERSION=11.8
 PHPMYADMIN_VERSION=latest
-PHPREDISADMIN_VERSION=latest
-NGINX_VERSION=mainline
-HTTPS_PORTAL_VERSION=1
+REDIS_VERSION=8-alpine
+TRAEFIK_VERSION=3
 
 # Variables de configuración
 MYSQL_ROOT_PASSWORD=12345Abcde
@@ -18,5 +17,7 @@ MYSQL_PASSWORD=12345Abcde
 COMPOSE_PROJECT_NAME=blog
 
 # Sitios web
-HTTPS_PORTAL_SITES=blog.test -> http://nginx:80, phpmyadmin.blog.test -> http://phpmyadmin:80,
-HTTPS_PORTAL_STAGE=local
+FQDN_BLOG=blog.test
+FQDN_PHPMYADMIN=phpmyadmin.blog.test
+FQDN_MAILPIT=mailpit.blog.test
+FQDN_TRAEFIK=traefik.blog.test

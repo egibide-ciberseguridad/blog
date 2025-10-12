@@ -1,6 +1,6 @@
 ARG NGINX_VERSION=mainline
 
 # Set master image
-FROM nginx:${NGINX_VERSION}-alpine-slim
+FROM nginx:${NGINX_VERSION}
 
 RUN mkdir -p /var/www/html && chmod 755 /var/www/html

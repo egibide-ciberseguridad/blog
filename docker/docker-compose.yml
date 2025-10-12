@@ -1,24 +1,25 @@
 services:
 
-  https-portal:
-    image: steveltn/https-portal:${HTTPS_PORTAL_VERSION}
-    stop_signal: SIGINT
-    environment:
-      DOMAINS: >
-        ${HTTPS_PORTAL_SITES}
-      CLIENT_MAX_BODY_SIZE: 1024M
-      SERVER_NAMES_HASH_BUCKET_SIZE: 1024
-      WEBSOCKET: true
-      STAGE: ${HTTPS_PORTAL_STAGE}
-    volumes:
-      - https-portal_certs:/var/lib/https-portal
-      - https-portal_logs:/var/log/nginx
+  traefik:
+    image: traefik:${TRAEFIK_VERSION:-3}
     ports:
       - "80:80"
       - "443:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-dashboard.rule=Host(`${FQDN_TRAEFIK:-traefik.blog.test}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-dashboard.service=api@internal"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-dashboard.tls=true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
     depends_on:
       - nginx
       - phpmyadmin
+      - mailpit
 
   mariadb:
     image: mariadb:${MARIADB_VERSION}
@@ -38,6 +39,12 @@ services:
       context: ./nginx
       args:
         - NGINX_VERSION=${NGINX_VERSION}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-nginx.rule=Host(`${FQDN_BLOG:-blog.test}`) || Host(`host.docker.internal`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-nginx.entrypoints=websecure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-nginx.tls=true"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-nginx.loadbalancer.server.port=80"
     volumes:
       - ./nginx/:/etc/nginx/conf.d/:ro
       - ../laravel:/var/www/html/laravel
@@ -65,23 +72,38 @@ services:
   phpmyadmin:
     image: phpmyadmin:${PHPMYADMIN_VERSION}
     environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - PMA_HOST=mariadb
       - PMA_PORT=3306
       - UPLOAD_LIMIT=1g
     expose:
       - 80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.rule=Host(`${FQDN_PHPMYADMIN:-phpmyadmin.blog.test}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.entrypoints=websecure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.tls=true"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-phpmyadmin.loadbalancer.server.port=80"
     depends_on:
       - mariadb
 
   redis:
-    image: redis:${REDIS_VERSION}-alpine
+    image: redis:${REDIS_VERSION}
     volumes:
       - redis_data:/data
     expose:
       - 6379
 
+  mailpit:
+    image: axllent/mailpit:${MAILPIT_VERSION:-latest}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailpit.rule=Host(`${FQDN_MAILPIT:-mailpit.blog.test}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailpit.entrypoints=websecure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-mailpit.tls=true"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-mailpit.loadbalancer.server.port=8025"
+
 volumes:
-  https-portal_certs:
-  https-portal_logs:
   mariadb_data:
   redis_data:
