@@ -138,3 +138,5 @@ docker/.idea/
 laravel/.idea/
 
 laravel/public/build/
+
+laravel/.phpunit.cache/
