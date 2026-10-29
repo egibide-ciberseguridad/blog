@@ -12,7 +12,7 @@ help: _header
 	@echo Opciones:
 	@echo ---------------------------------
 	@echo build
-	@echo start / stop / restart / stop-all
+	@echo start / stop / restart
 	@echo install
 	@echo seed
 	@echo workspace / workspace-root
@@ -46,12 +46,9 @@ _start-command:
 start: _start-command _urls
 
 stop:
-	@docker compose stop
+	@docker compose down
 
 restart: stop start
-
-stop-all:
-	@docker stop $(shell docker ps -aq)
 
 install:
 	@docker compose exec php composer install
